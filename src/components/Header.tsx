@@ -27,97 +27,96 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-16 md:h-20 flex items-center ${
           scrolled
-            ? 'bg-white/90 backdrop-blur-lg shadow-soft border-b border-navy-100 py-2'
-            : 'bg-white/95 backdrop-blur-md py-4'
+            ? 'bg-white/90 backdrop-blur-lg shadow-soft border-b border-navy-100'
+            : 'bg-white/95 backdrop-blur-md'
         }`}
       >
-        <div className="container-app">
-          {/* Adjusted height classes so header isn't excessively tall on load */}
-          <div className="flex items-center justify-between transition-all duration-300">
-            {/* Logo size balanced to fit normally without obstructing the view */}
-            <Link to="/" className="flex items-center py-1">
-              <img
-                src="/logo.png"
-                alt={siteConfig.name || "Logo"}
-                className={`transition-all duration-300 object-contain w-auto max-w-[280px] ${
-                  scrolled ? 'h-12' : 'h-16 md:h-20'
-                }`}
-              />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center py-1">
+            <img
+              src="/logo.png"
+              alt={siteConfig.name || "Logo"}
+              className="h-10 sm:h-12 md:h-14 w-auto object-contain"
+            />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const active = location.pathname === link.path ||
+                (link.path !== '/' && location.pathname.startsWith(link.path));
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    active ? 'text-primary-700 bg-primary-50' : 'text-navy-700 hover:text-primary-700 hover:bg-navy-50'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Actions */}
+          <div className="flex items-center gap-2">
+            <a
+              href={`tel:${siteConfig.phoneRaw}`}
+              className="hidden md:flex items-center gap-1.5 text-sm font-semibold text-navy-700 hover:text-primary-700 transition-colors px-2"
+            >
+              <Phone className="w-4 h-4" />
+              {siteConfig.phone}
+            </a>
+            <a
+              href={buildWhatsAppUrl(whatsappMessages.general)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex btn btn-whatsapp text-xs py-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              WhatsApp
+            </a>
+            <Link to="/book" className="hidden sm:flex btn btn-primary text-xs py-2">
+              Book Appointment
             </Link>
-
-            <nav className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => {
-                const active = location.pathname === link.path ||
-                  (link.path !== '/' && location.pathname.startsWith(link.path));
-                return (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      active ? 'text-primary-700 bg-primary-50' : 'text-navy-700 hover:text-primary-700 hover:bg-navy-50'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-            </nav>
-
-            <div className="flex items-center gap-2">
-              <a
-                href={`tel:${siteConfig.phoneRaw}`}
-                className="hidden md:flex items-center gap-1.5 text-sm font-semibold text-navy-700 hover:text-primary-700 transition-colors px-3"
-              >
-                <Phone className="w-4 h-4" />
-                {siteConfig.phone}
-              </a>
-              <a
-                href={buildWhatsAppUrl(whatsappMessages.general)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:flex btn btn-whatsapp text-xs py-2"
-              >
-                <MessageCircle className="w-4 h-4" />
-                WhatsApp
-              </a>
-              <Link to="/book" className="hidden sm:flex btn btn-primary text-xs py-2">
-                Book Appointment
-              </Link>
-              <button
-                onClick={() => setMobileOpen(true)}
-                className="lg:hidden btn btn-ghost px-3"
-                aria-label="Open menu"
-              >
-                <Menu className="w-5 h-5" />
-              </button>
-            </div>
+            
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileOpen(true)}
+              className="lg:hidden p-2 rounded-xl text-navy-700 hover:bg-navy-50 transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile menu */}
+      {/* Mobile Drawer Menu */}
       {mobileOpen && (
         <div className="fixed inset-0 z-[60] lg:hidden">
           <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white shadow-premium animate-slide-in flex flex-col">
-            <div className="flex items-center justify-between p-5 border-b border-navy-100">
+            <div className="flex items-center justify-between p-4 border-b border-navy-100 h-16">
               <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center">
-                <img src="/logo.png" alt="Logo" className="h-14 object-contain w-auto max-w-[200px]" />
+                <img src="/logo.png" alt="Logo" className="h-10 object-contain w-auto" />
               </Link>
-              <button onClick={() => setMobileOpen(false)} className="btn btn-ghost px-3" aria-label="Close menu">
-                <X className="w-5 h-5" />
+              <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-navy-700 hover:bg-navy-50" aria-label="Close menu">
+                <X className="w-6 h-6" />
               </button>
             </div>
-            <nav className="flex-1 overflow-y-auto p-4">
+            <nav className="flex-1 overflow-y-auto p-4 space-y-1">
               {navLinks.map((link) => {
                 const active = location.pathname === link.path;
                 return (
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors mb-1 ${
+                    className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
                       active ? 'text-primary-700 bg-primary-50' : 'text-navy-700 hover:bg-navy-50'
                     }`}
                   >
@@ -126,12 +125,12 @@ export function Header() {
                 );
               })}
             </nav>
-            <div className="p-4 border-t border-navy-100 space-y-2">
-              <Link to="/book" className="btn btn-primary w-full">Book Appointment</Link>
-              <a href={buildWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp w-full">
+            <div className="p-4 border-t border-navy-100 space-y-2.5">
+              <Link to="/book" className="btn btn-primary w-full text-sm py-2.5">Book Appointment</Link>
+              <a href={buildWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp w-full text-sm py-2.5">
                 <MessageCircle className="w-4 h-4" /> WhatsApp
               </a>
-              <a href={`tel:${siteConfig.phoneRaw}`} className="btn btn-outline w-full">
+              <a href={`tel:${siteConfig.phoneRaw}`} className="btn btn-outline w-full text-sm py-2.5">
                 <Phone className="w-4 h-4" /> {siteConfig.phone}
               </a>
             </div>

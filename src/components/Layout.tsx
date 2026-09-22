@@ -12,7 +12,7 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Header />
-      <main className="flex-1 pt-36 lg:pt-44">
+      <main className="flex-1 pt-16 md:pt-20">
         <Outlet />
       </main>
       <Footer />
