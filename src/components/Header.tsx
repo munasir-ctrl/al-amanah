@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 import { navLinks, siteConfig } from '@/data/siteConfig';
-import { Logo } from './Logo';
 import { buildWhatsAppUrl, whatsappMessages } from '@/lib/whatsapp';
 
 export function Header() {
@@ -35,8 +34,18 @@ export function Header() {
         }`}
       >
         <div className="container-app">
-          <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? 'h-16' : 'h-20'}`}>
-            <Logo compact={scrolled} />
+          {/* Ultra-large header height expansion for maximum logo size */}
+          <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? 'h-20' : 'h-60'}`}>
+            {/* Ultra-large logo integration */}
+            <Link to="/" className="flex items-center py-1">
+              <img
+                src="/logo.png"
+                alt={siteConfig.name || "Logo"}
+                className={`transition-all duration-300 object-contain w-auto max-w-[380px] ${
+                  scrolled ? 'h-14' : 'h-52'
+                }`}
+              />
+            </Link>
 
             <nav className="hidden lg:flex items-center gap-1">
               {navLinks.map((link) => {
@@ -94,7 +103,9 @@ export function Header() {
           <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white shadow-premium animate-slide-in flex flex-col">
             <div className="flex items-center justify-between p-5 border-b border-navy-100">
-              <Logo />
+              <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center">
+                <img src="/logo.png" alt="Logo" className="h-24 object-contain w-auto max-w-[220px]" />
+              </Link>
               <button onClick={() => setMobileOpen(false)} className="btn btn-ghost px-3" aria-label="Close menu">
                 <X className="w-5 h-5" />
               </button>

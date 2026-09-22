@@ -6,19 +6,27 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
   return (
     <div className="card group hover:shadow-premium hover:border-primary-200 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
       <div className="aspect-[3/4] bg-gradient-to-br from-navy-100 to-primary-100 relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-24 h-24 rounded-full bg-white/60 backdrop-blur-sm flex items-center justify-center shadow-soft group-hover:scale-110 transition-transform duration-300">
-            <span className="text-3xl font-bold text-primary-600">
-              {doctor.name.replace('Dr. ', '').charAt(0)}
-            </span>
+        {doctor.image ? (
+          <img
+            src={doctor.image}
+            alt={doctor.name}
+            className="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-24 h-24 rounded-full bg-white/60 backdrop-blur-sm flex items-center justify-center shadow-soft group-hover:scale-110 transition-transform duration-300">
+              <span className="text-3xl font-bold text-primary-600">
+                {doctor.name.replace('Dr. ', '').charAt(0)}
+              </span>
+            </div>
           </div>
-        </div>
-        <div className="absolute top-3 left-3">
-          <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-600 text-white">
+        )}
+        <div className="absolute top-3 left-3 z-10">
+          <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-600 text-white shadow-sm">
             {doctor.category}
           </span>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 to-navy-900/0 group-hover:from-navy-900/10 transition-all duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/20 via-transparent to-transparent group-hover:from-navy-900/30 transition-all duration-300 pointer-events-none" />
       </div>
       <div className="p-5 flex flex-col flex-1">
         <h3 className="text-base font-bold text-navy-900 mb-1 group-hover:text-primary-700 transition-colors">
