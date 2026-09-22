@@ -29,20 +29,20 @@ export function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/90 backdrop-blur-lg shadow-soft border-b border-navy-100'
-            : 'bg-white/70 backdrop-blur-sm'
+            ? 'bg-white/90 backdrop-blur-lg shadow-soft border-b border-navy-100 py-2'
+            : 'bg-white/95 backdrop-blur-md py-4'
         }`}
       >
         <div className="container-app">
-          {/* Ultra-large header height expansion for maximum logo size */}
-          <div className={`flex items-center justify-between transition-all duration-300 ${scrolled ? 'h-20' : 'h-60'}`}>
-            {/* Ultra-large logo integration */}
+          {/* Adjusted height classes so header isn't excessively tall on load */}
+          <div className="flex items-center justify-between transition-all duration-300">
+            {/* Logo size balanced to fit normally without obstructing the view */}
             <Link to="/" className="flex items-center py-1">
               <img
                 src="/logo.png"
                 alt={siteConfig.name || "Logo"}
-                className={`transition-all duration-300 object-contain w-auto max-w-[380px] ${
-                  scrolled ? 'h-14' : 'h-52'
+                className={`transition-all duration-300 object-contain w-auto max-w-[280px] ${
+                  scrolled ? 'h-12' : 'h-16 md:h-20'
                 }`}
               />
             </Link>
@@ -77,12 +77,12 @@ export function Header() {
                 href={buildWhatsAppUrl(whatsappMessages.general)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:flex btn btn-whatsapp"
+                className="hidden sm:flex btn btn-whatsapp text-xs py-2"
               >
                 <MessageCircle className="w-4 h-4" />
                 WhatsApp
               </a>
-              <Link to="/book" className="hidden sm:flex btn btn-primary">
+              <Link to="/book" className="hidden sm:flex btn btn-primary text-xs py-2">
                 Book Appointment
               </Link>
               <button
@@ -104,7 +104,7 @@ export function Header() {
           <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white shadow-premium animate-slide-in flex flex-col">
             <div className="flex items-center justify-between p-5 border-b border-navy-100">
               <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center">
-                <img src="/logo.png" alt="Logo" className="h-24 object-contain w-auto max-w-[220px]" />
+                <img src="/logo.png" alt="Logo" className="h-14 object-contain w-auto max-w-[200px]" />
               </Link>
               <button onClick={() => setMobileOpen(false)} className="btn btn-ghost px-3" aria-label="Close menu">
                 <X className="w-5 h-5" />
