@@ -27,19 +27,19 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-24 sm:h-28 md:h-40 flex items-center ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-28 sm:h-32 md:h-40 flex items-center ${
           scrolled
             ? 'bg-white/90 backdrop-blur-lg shadow-soft border-b border-navy-100'
             : 'bg-white/95 backdrop-blur-md'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
-          {/* Logo - Maximized to 100X scale on mobile */}
+          {/* Logo - Pushed to absolute maximum mobile scale */}
           <Link to="/" className="flex items-center justify-center h-full my-auto overflow-visible py-1">
             <img
               src="/logo.png"
               alt={siteConfig.name || "Logo"}
-              className="h-20 sm:h-24 md:h-36 w-auto object-contain max-w-[280px] sm:max-w-[380px] md:max-w-[500px]"
+              className="h-24 sm:h-28 md:h-36 w-auto object-contain max-w-[320px] sm:max-w-[420px] md:max-w-[500px]"
             />
           </Link>
 
@@ -90,7 +90,7 @@ export function Header() {
               className="lg:hidden p-2 rounded-xl text-navy-700 hover:bg-navy-50 transition-colors"
               aria-label="Open menu"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-7 h-7" />
             </button>
           </div>
         </div>
@@ -101,9 +101,9 @@ export function Header() {
         <div className="fixed inset-0 z-[60] lg:hidden">
           <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white shadow-premium animate-slide-in flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-navy-100 h-28">
+            <div className="flex items-center justify-between p-4 border-b border-navy-100 h-32">
               <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center justify-center h-full">
-                <img src="/logo.png" alt="Logo" className="h-20 object-contain w-auto max-w-[260px]" />
+                <img src="/logo.png" alt="Logo" className="h-24 object-contain w-auto max-w-[280px]" />
               </Link>
               <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-navy-700 hover:bg-navy-50" aria-label="Close menu">
                 <X className="w-6 h-6" />
