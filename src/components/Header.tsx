@@ -34,12 +34,12 @@ export function Header() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
-          {/* Logo - Optimized for Phone UX */}
-          <Link to="/" className="flex items-center justify-center h-full my-auto overflow-visible">
+          {/* Logo - Prominent and sized up for mobile */}
+          <Link to="/" className="flex items-center justify-center h-full my-auto overflow-visible py-1">
             <img
               src="/logo.png"
               alt={siteConfig.name || "Logo"}
-              className="h-12 sm:h-16 md:h-36 w-auto object-contain max-w-[200px] sm:max-w-[280px] md:max-w-[500px]"
+              className="h-16 sm:h-20 md:h-36 w-auto object-contain max-w-[260px] sm:max-w-[340px] md:max-w-[500px]"
             />
           </Link>
 
@@ -103,7 +103,7 @@ export function Header() {
           <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white shadow-premium animate-slide-in flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-navy-100 h-24">
               <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center justify-center h-full">
-                <img src="/logo.png" alt="Logo" className="h-14 object-contain w-auto max-w-[200px]" />
+                <img src="/logo.png" alt="Logo" className="h-16 object-contain w-auto max-w-[240px]" />
               </Link>
               <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-navy-700 hover:bg-navy-50" aria-label="Close menu">
                 <X className="w-6 h-6" />
