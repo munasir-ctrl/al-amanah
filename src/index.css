@@ -7,10 +7,14 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-white text-navy-900 font-sans;
     font-feature-settings: 'cv11', 'ss01';
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight text-navy-900;
@@ -24,9 +28,16 @@
   }
 }
 
+/* Mobile-optimized touch manipulation and zero-delay feedback */
+@media (max-width: 1023px) {
+  button, a, input, select, textarea {
+    touch-action: manipulation;
+  }
+}
+
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200;
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 active:scale-95;
   }
   .btn-primary {
     @apply bg-primary-600 text-white hover:bg-primary-700 shadow-soft hover:shadow-card hover:-translate-y-0.5 active:translate-y-0;
