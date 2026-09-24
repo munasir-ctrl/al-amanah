@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
-import { Calendar, MessageCircle, Check, Phone, Globe, Clock, Award, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Calendar, MessageCircle, Check, Phone, Globe, Clock, Award, ChevronRight, Sparkles, ShieldCheck } from 'lucide-react';
 import { SEO } from '@/components/SEO';
 import { getDoctorBySlug, doctors } from '@/data/doctors';
 import { services } from '@/data/services';
@@ -37,123 +38,184 @@ export function DoctorProfilePage() {
         structuredData={physicianSchema}
       />
 
-      {/* Breadcrumb */}
-      <div className="bg-navy-50 border-b border-navy-100">
-        <div className="container-app py-3">
-          <nav className="flex items-center gap-2 text-xs text-navy-500">
-            <Link to="/" className="hover:text-primary-700">Home</Link>
-            <span>/</span>
-            <Link to="/doctors" className="hover:text-primary-700">Doctors</Link>
-            <span>/</span>
-            <span className="text-navy-700 font-medium">{doctor.name}</span>
+      {/* Classic Editorial Breadcrumb */}
+      <div className="bg-white border-b border-navy-100">
+        <div className="container-app py-4">
+          <nav className="flex items-center gap-2 text-xs font-medium text-navy-500 uppercase tracking-widest">
+            <Link to="/" className="hover:text-navy-900 transition-colors">Home</Link>
+            <ChevronRight className="w-3 h-3 text-navy-400" />
+            <Link to="/doctors" className="hover:text-navy-900 transition-colors">Doctors</Link>
+            <ChevronRight className="w-3 h-3 text-navy-400" />
+            <span className="text-navy-900 font-bold">{doctor.name}</span>
           </nav>
         </div>
       </div>
 
-      {/* Profile Header */}
-      <section className="bg-gradient-to-br from-navy-50 to-white py-12 md:py-16">
+      {/* Classic Profile Header Section */}
+      <section className="bg-white py-20 md:py-28 border-b border-navy-100">
         <div className="container-app">
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-1">
-              <div className="aspect-[3/4] rounded-3xl bg-gradient-to-br from-navy-100 to-primary-100 flex items-center justify-center shadow-soft">
-                <div className="w-32 h-32 rounded-full bg-white/60 backdrop-blur-sm flex items-center justify-center">
-                  <span className="text-5xl font-bold text-primary-600">
-                    {doctor.name.replace('Dr. ', '').charAt(0)}
-                  </span>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Portrait / Photo Container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-5"
+            >
+              <div className="aspect-[4/5] rounded-2xl bg-navy-50 border border-navy-200/80 shadow-xl relative overflow-hidden flex items-center justify-center group">
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary-600 to-navy-900 z-10" />
+                <div className="absolute inset-0 bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:24px_24px] opacity-5 pointer-events-none z-10" />
+                
+                {doctor.image ? (
+                  <img 
+                    src={doctor.image} 
+                    alt={doctor.name} 
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-40 h-40 rounded-2xl bg-white shadow-lg border border-navy-200/60 flex flex-col items-center justify-center text-center p-6 relative z-10">
+                    <span className="text-xs uppercase tracking-widest font-bold text-primary-600 mb-1">Consultant</span>
+                    <span className="text-5xl font-extrabold text-navy-900 tracking-tight">
+                      {doctor.name.replace('Dr. ', '').charAt(0)}
+                    </span>
+                    <div className="w-8 h-0.5 bg-primary-600 mt-2" />
+                  </div>
+                )}
+              </div>
+            </motion.div>
+
+            {/* Profile Bio & Actions */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-7"
+            >
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-50 border border-navy-200/80 text-navy-800 text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 text-primary-600" /> {doctor.category}
+              </div>
+
+              <h1 className="text-4xl md:text-5xl font-extrabold text-navy-900 mb-3 tracking-tight">{doctor.name}</h1>
+              <p className="text-lg md:text-xl text-primary-600 font-bold mb-6">{doctor.specialty}</p>
+              
+              {doctor.qualification && (
+                <div className="flex items-center gap-3 text-sm text-navy-800 font-semibold mb-6 bg-navy-50/70 py-3 px-4 rounded-xl border border-navy-200/60 w-fit">
+                  <Award className="w-4 h-4 text-primary-600 shrink-0" />
+                  <span>{doctor.qualification}</span>
+                </div>
+              )}
+
+              <p className="text-base text-navy-600 leading-relaxed mb-8 font-normal">{doctor.overview}</p>
+
+              <div className="flex flex-wrap gap-4">
+                <Link to={`/book?doctor=${doctor.slug}`} className="btn bg-navy-900 text-white hover:bg-navy-800 shadow-md px-6 py-3.5 text-sm font-bold">
+                  <Calendar className="w-4 h-4" /> Book Appointment
+                </Link>
+                <a href={buildWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp shadow-md px-6 py-3.5 text-sm font-bold">
+                  <MessageCircle className="w-4 h-4" /> WhatsApp Chat
+                </a>
+                <a href={`tel:${siteConfig.phoneRaw}`} className="btn bg-white text-navy-900 border border-navy-300 hover:bg-navy-50 shadow-sm px-6 py-3.5 text-sm font-bold">
+                  <Phone className="w-4 h-4 text-primary-600" /> Call Clinic
+                </a>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Structured Information & Expertise Section */}
+      <section className="py-20 md:py-28 bg-navy-50/40">
+        <div className="container-app max-w-5xl">
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            
+            {/* Expertise Card */}
+            <div className="bg-white p-8 rounded-2xl border border-navy-200/80 shadow-sm h-full flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-2 mb-6">
+                  <ShieldCheck className="w-5 h-5 text-primary-600" />
+                  <h2 className="text-xl font-bold text-navy-900 tracking-tight">Areas of Expertise</h2>
+                </div>
+                <div className="w-12 h-0.5 bg-primary-600 mb-6" />
+                <ul className="space-y-4">
+                  {doctor.expertise.map((item) => (
+                    <li key={item} className="flex items-start gap-3.5">
+                      <div className="flex items-center justify-center w-5 h-5 rounded-full bg-navy-50 border border-navy-200 shrink-0 mt-0.5">
+                        <Check className="w-3 h-3 text-primary-600 stroke-[3]" />
+                      </div>
+                      <span className="text-sm font-semibold text-navy-800 leading-snug">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Quick Information Card */}
+            <div className="bg-white p-8 rounded-2xl border border-navy-200/80 shadow-sm h-full flex flex-col justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-navy-900 mb-2 tracking-tight">Clinical Profile</h2>
+                <div className="w-12 h-0.5 bg-primary-600 mb-6" />
+                
+                <div className="space-y-4">
+                  {doctor.experience && (
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-navy-50/50 border border-navy-200/60 shadow-sm">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white text-primary-600 shrink-0 border border-navy-200/60 shadow-sm">
+                        <Award className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-navy-400">Professional Tenure</p>
+                        <p className="text-sm font-bold text-navy-900">{doctor.experience}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {doctor.languages && (
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-navy-50/50 border border-navy-200/60 shadow-sm">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white text-primary-600 shrink-0 border border-navy-200/60 shadow-sm">
+                        <Globe className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-navy-400">Languages Spoken</p>
+                        <p className="text-sm font-bold text-navy-900">{doctor.languages.join(', ')}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {doctor.schedule && (
+                    <div className="flex items-center gap-4 p-4 rounded-xl bg-navy-50/50 border border-navy-200/60 shadow-sm">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white text-primary-600 shrink-0 border border-navy-200/60 shadow-sm">
+                        <Clock className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-navy-400">Clinical Schedule</p>
+                        <p className="text-sm font-bold text-navy-900">{doctor.schedule}</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-2">
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-700 mb-3 inline-block">
-                {doctor.category}
-              </span>
-              <h1 className="text-3xl md:text-4xl font-bold text-navy-900 mb-2">{doctor.name}</h1>
-              <p className="text-lg text-primary-600 font-semibold mb-4">{doctor.specialty}</p>
-              {doctor.qualification && (
-                <p className="text-sm text-navy-500 mb-4 flex items-center gap-2">
-                  <Award className="w-4 h-4 text-accent-600" /> {doctor.qualification}
-                </p>
-              )}
-              <p className="text-base text-navy-600 leading-relaxed mb-6">{doctor.overview}</p>
-              <div className="flex flex-wrap gap-3">
-                <Link to={`/book?doctor=${doctor.slug}`} className="btn btn-primary">
-                  <Calendar className="w-4 h-4" /> Book Appointment
-                </Link>
-                <a href={buildWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp">
-                  <MessageCircle className="w-4 h-4" /> WhatsApp
-                </a>
-                <a href={`tel:${siteConfig.phoneRaw}`} className="btn btn-outline">
-                  <Phone className="w-4 h-4" /> Call
-                </a>
-              </div>
-            </div>
+
           </div>
         </div>
       </section>
 
-      {/* Details */}
-      <section className="section bg-white">
-        <div className="container-app max-w-4xl">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h2 className="text-xl font-bold text-navy-900 mb-4">Areas of Expertise</h2>
-              <ul className="space-y-2.5">
-                {doctor.expertise.map((item) => (
-                  <li key={item} className="flex items-start gap-2.5">
-                    <div className="flex items-center justify-center w-6 h-6 rounded-lg bg-accent-50 shrink-0 mt-0.5">
-                      <Check className="w-3.5 h-3.5 text-accent-600" />
-                    </div>
-                    <span className="text-sm text-navy-700">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-navy-900 mb-4">Information</h2>
-              <div className="space-y-3">
-                {doctor.experience && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-navy-50">
-                    <Award className="w-5 h-5 text-primary-600 shrink-0" />
-                    <div>
-                      <p className="text-xs text-navy-400">Experience</p>
-                      <p className="text-sm font-medium text-navy-700">{doctor.experience}</p>
-                    </div>
-                  </div>
-                )}
-                {doctor.languages && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-navy-50">
-                    <Globe className="w-5 h-5 text-primary-600 shrink-0" />
-                    <div>
-                      <p className="text-xs text-navy-400">Languages</p>
-                      <p className="text-sm font-medium text-navy-700">{doctor.languages.join(', ')}</p>
-                    </div>
-                  </div>
-                )}
-                {doctor.schedule && (
-                  <div className="flex items-center gap-3 p-3 rounded-xl bg-navy-50">
-                    <Clock className="w-5 h-5 text-primary-600 shrink-0" />
-                    <div>
-                      <p className="text-xs text-navy-400">Schedule</p>
-                      <p className="text-sm font-medium text-navy-700">{doctor.schedule}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Related Services */}
+      {/* Related Services Section */}
       {relatedServices.length > 0 && (
-        <section className="section bg-navy-50">
+        <section className="py-20 md:py-28 bg-white border-t border-navy-100">
           <div className="container-app">
-            <h2 className="text-2xl font-bold text-navy-900 mb-6">Treatments & Services</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-bold uppercase tracking-widest text-primary-600 mb-3 block">Specialized Treatments</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-navy-900 tracking-tight">Associated Clinical Services</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedServices.map((s) => (
-                <Link key={s.slug} to={`/services/${s.slug}`} className="card group p-5 hover:shadow-premium transition-all">
-                  <h3 className="text-base font-bold text-navy-900 mb-1 group-hover:text-primary-700 transition-colors">{s.title}</h3>
-                  <p className="text-sm text-navy-500">{s.shortDescription}</p>
+                <Link key={s.slug} to={`/services/${s.slug}`} className="group p-8 bg-navy-50/40 hover:bg-white hover:border-navy-300 transition-all rounded-xl border border-navy-200/80 shadow-sm flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-lg font-bold text-navy-900 mb-2 group-hover:text-primary-600 transition-colors">{s.title}</h3>
+                    <p className="text-sm text-navy-600 leading-relaxed">{s.shortDescription}</p>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -161,12 +223,15 @@ export function DoctorProfilePage() {
         </section>
       )}
 
-      {/* Related Doctors */}
+      {/* Related Doctors Section */}
       {relatedDoctors.length > 0 && (
-        <section className="section bg-white">
+        <section className="py-20 md:py-28 bg-navy-50/40 border-t border-navy-100">
           <div className="container-app">
-            <h2 className="text-2xl font-bold text-navy-900 mb-6">Related Doctors</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-bold uppercase tracking-widest text-primary-600 mb-3 block">Our Medical Board</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-navy-900 tracking-tight">Other Distinguished Specialists</h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedDoctors.map((d) => (
                 <DoctorCard key={d.slug} doctor={d} />
               ))}
@@ -175,17 +240,21 @@ export function DoctorProfilePage() {
         </section>
       )}
 
-      {/* CTA */}
-      <section className="section bg-primary-700 text-white">
-        <div className="container-app text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Book with {doctor.name}</h2>
-          <p className="text-primary-100 mb-6">Schedule your appointment online or reach out via WhatsApp.</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link to={`/book?doctor=${doctor.slug}`} className="btn bg-white text-primary-700 hover:bg-primary-50">
-              <Calendar className="w-4 h-4" /> Book Appointment
+      {/* Classic CTA Section */}
+      <section className="py-20 md:py-28 bg-navy-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+        
+        <div className="container-app text-center relative z-10 max-w-3xl mx-auto">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary-400 mb-4 inline-block">Direct Consultation</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Book an Appointment with {doctor.name}</h2>
+          <p className="text-navy-200 text-base md:text-lg mb-8 max-w-xl mx-auto leading-relaxed">Schedule your appointment online or coordinate directly via our dedicated WhatsApp support desk.</p>
+          
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link to={`/book?doctor=${doctor.slug}`} className="btn bg-white text-navy-900 hover:bg-navy-100 shadow-md font-bold px-6 py-3.5">
+              <Calendar className="w-4 h-4 text-primary-600" /> Book Appointment
             </Link>
-            <a href={buildWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp">
-              <MessageCircle className="w-4 h-4" /> WhatsApp
+            <a href={buildWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp shadow-md font-bold px-6 py-3.5">
+              <MessageCircle className="w-4 h-4" /> WhatsApp Chat
             </a>
           </div>
         </div>

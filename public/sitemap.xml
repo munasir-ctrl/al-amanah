@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Pages -->
   <url><loc>https://www.alamanahmedicalcenter.com/</loc><priority>1.0</priority></url>
   <url><loc>https://www.alamanahmedicalcenter.com/services</loc><priority>0.9</priority></url>
   <url><loc>https://www.alamanahmedicalcenter.com/doctors</loc><priority>0.9</priority></url>
@@ -10,41 +11,20 @@
   <url><loc>https://www.alamanahmedicalcenter.com/about</loc><priority>0.7</priority></url>
   <url><loc>https://www.alamanahmedicalcenter.com/contact</loc><priority>0.8</priority></url>
   <url><loc>https://www.alamanahmedicalcenter.com/book</loc><priority>0.9</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/general-dentistry</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/root-canal-treatment</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/braces-orthodontics</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/smile-designing</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/dentures-veneers</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/cosmetic-dentistry</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/internal-medicine</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/diabetes-care</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/cardiology</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/pediatrics</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/ent</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/services/health-checkups</loc><priority>0.6</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-sabeena-ali</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-ali-akbar</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-km-saieda</loc><priority>0.7</priority></url>
+
+  <!-- Specialties URLs -->
+  <url><loc>https://www.alamanahmedicalcenter.com/specialties/cardiology</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/specialties/internal-medicine</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/specialties/general-practice</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/specialties/dental</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/specialties/unani</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/specialties/homoeopathy</loc><priority>0.7</priority></url>
+
+  <!-- Doctors URLs -->
   <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-aboobacker</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-sameeha-sathar</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-juneem-kassim</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-sunil-kumar-bn</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-priyankar-panigrahi</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-najla-rahmatullah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/medical-center-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/ent-specialist-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/dental-clinic-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/diabetes-clinic-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/internal-medicine-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/cardiology-consultation-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/pediatric-clinic-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/orthodontist-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/root-canal-treatment-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/specialties/cosmetic-dentistry-sharjah</loc><priority>0.7</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/health-guide/why-does-my-tooth-hurt</loc><priority>0.5</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/health-guide/when-do-you-need-a-root-canal</loc><priority>0.5</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/health-guide/signs-you-should-see-ent-specialist</loc><priority>0.5</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/health-guide/understanding-diabetes-checkups</loc><priority>0.5</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/health-guide/when-should-child-see-pediatrician</loc><priority>0.5</priority></url>
-  <url><loc>https://www.alamanahmedicalcenter.com/health-guide/what-happens-during-health-checkup</loc><priority>0.5</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-ibrahim</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-hussaini</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-boomiga</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-juneem</loc><priority>0.7</priority></url>
+  <url><loc>https://www.alamanahmedicalcenter.com/doctors/dr-sheharban</loc><priority>0.7</priority></url>
 </urlset>

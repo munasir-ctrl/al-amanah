@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
-import { SectionHeading } from '@/components/SectionHeading';
 import { specialtyPages } from '@/data/specialties';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export function SpecialtiesPage() {
   return (
     <>
       <SEO
         title="Specialties — Specialist Care in Sharjah"
-        description="Explore our medical specialties at Al Amanah Medical Center in Sharjah — ENT, dental, internal medicine, cardiology, pediatrics, and more."
+        description="Explore our medical specialties at Al Amanah Medical Center in Sharjah — cardiology, internal medicine, general practice, dental, Unani, and homoeopathy."
         canonical="/specialties"
       />
       <div className="bg-gradient-to-b from-navy-50 to-white py-12 md:py-16">

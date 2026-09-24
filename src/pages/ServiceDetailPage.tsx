@@ -47,7 +47,7 @@ export function ServiceDetailPage() {
       </div>
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-navy-50 to-white py-12 md:py-16">
+      <section className="bg-gradient-to-br from-navy-50 to-white py-10 md:py-14">
         <div className="container-app">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
@@ -91,7 +91,7 @@ export function ServiceDetailPage() {
       </section>
 
       {/* Benefits */}
-      <section className="section bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="container-app max-w-4xl">
           <h2 className="text-2xl font-bold text-navy-900 mb-6">What's Included</h2>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -109,7 +109,7 @@ export function ServiceDetailPage() {
 
       {/* FAQs */}
       {service.faqs && service.faqs.length > 0 && (
-        <section className="section bg-navy-50">
+        <section className="py-12 md:py-16 bg-navy-50">
           <div className="container-app max-w-3xl">
             <h2 className="text-2xl font-bold text-navy-900 mb-6">Frequently Asked Questions</h2>
             <div className="space-y-3">
@@ -126,7 +126,7 @@ export function ServiceDetailPage() {
 
       {/* Related Doctors */}
       {relatedDoctors.length > 0 && (
-        <section className="section bg-white">
+        <section className="py-12 md:py-16 bg-white">
           <div className="container-app">
             <h2 className="text-2xl font-bold text-navy-900 mb-6">Related Doctors</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -140,7 +140,7 @@ export function ServiceDetailPage() {
 
       {/* Related Services */}
       {relatedServices.length > 0 && (
-        <section className="section bg-navy-50">
+        <section className="py-12 md:py-16 bg-navy-50">
           <div className="container-app">
             <h2 className="text-2xl font-bold text-navy-900 mb-6">Related Services</h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
@@ -159,7 +159,7 @@ export function ServiceDetailPage() {
       )}
 
       {/* CTA */}
-      <section className="section bg-primary-700 text-white">
+      <section className="py-12 md:py-16 bg-primary-700 text-white">
         <div className="container-app text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to Book?</h2>
           <p className="text-primary-100 mb-6">Schedule your {service.title.toLowerCase()} appointment today.</p>

@@ -32,10 +32,8 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
         <h3 className="text-base font-bold text-navy-900 mb-1 group-hover:text-primary-700 transition-colors">
           {doctor.name}
         </h3>
-        <p className="text-sm text-primary-600 font-medium mb-2">{doctor.specialty}</p>
-        {doctor.experience && (
-          <p className="text-xs text-navy-500 mb-3">{doctor.experience}</p>
-        )}
+        <p className="text-sm text-primary-600 font-medium mb-3">{doctor.title}</p>
+        
         {doctor.languages && (
           <div className="flex flex-wrap gap-1.5 mb-4">
             {doctor.languages.map((lang) => (
