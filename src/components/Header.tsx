@@ -34,12 +34,12 @@ export function Header() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
-          {/* Logo - Pushed to absolute maximum mobile scale */}
+          {/* Logo - Sized precisely from 250px to 400px wide by 100px high */}
           <Link to="/" className="flex items-center justify-center h-full my-auto overflow-visible py-1">
             <img
               src="/logo.png"
               alt={siteConfig.name || "Logo"}
-              className="h-24 sm:h-28 md:h-36 w-auto object-contain max-w-[320px] sm:max-w-[420px] md:max-w-[500px]"
+              className="w-[250px] sm:w-[350px] md:w-[400px] h-[80px] sm:h-[90px] md:h-[100px] object-contain"
             />
           </Link>
 
@@ -103,7 +103,7 @@ export function Header() {
           <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white shadow-premium animate-slide-in flex flex-col">
             <div className="flex items-center justify-between p-4 border-b border-navy-100 h-32">
               <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center justify-center h-full">
-                <img src="/logo.png" alt="Logo" className="h-24 object-contain w-auto max-w-[280px]" />
+                <img src="/logo.png" alt="Logo" className="w-[240px] h-[75px] object-contain" />
               </Link>
               <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-navy-700 hover:bg-navy-50" aria-label="Close menu">
                 <X className="w-6 h-6" />
