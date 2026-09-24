@@ -27,19 +27,19 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-28 sm:h-32 md:h-40 flex items-center ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-24 sm:h-28 md:h-36 flex items-center ${
           scrolled
             ? 'bg-white/90 backdrop-blur-lg shadow-soft border-b border-navy-100'
             : 'bg-white/95 backdrop-blur-md'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
-          {/* Logo - Sized precisely from 250px to 400px wide by 100px high */}
-          <Link to="/" className="flex items-center justify-center h-full my-auto overflow-visible py-1">
+          {/* Logo - Modeled after enterprise healthcare sites like NMC */}
+          <Link to="/" className="flex items-center h-full py-2 my-auto">
             <img
               src="/logo.png"
               alt={siteConfig.name || "Logo"}
-              className="w-[250px] sm:w-[350px] md:w-[400px] h-[80px] sm:h-[90px] md:h-[100px] object-contain"
+              className="h-full max-h-[70px] sm:max-h-[85px] md:max-h-[105px] w-auto object-contain"
             />
           </Link>
 
@@ -101,9 +101,9 @@ export function Header() {
         <div className="fixed inset-0 z-[60] lg:hidden">
           <div className="absolute inset-0 bg-navy-950/40 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white shadow-premium animate-slide-in flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-navy-100 h-32">
-              <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center justify-center h-full">
-                <img src="/logo.png" alt="Logo" className="w-[240px] h-[75px] object-contain" />
+            <div className="flex items-center justify-between p-4 border-b border-navy-100 h-28">
+              <Link to="/" onClick={() => setMobileOpen(false)} className="flex items-center h-full py-2">
+                <img src="/logo.png" alt="Logo" className="h-full max-h-[70px] w-auto object-contain" />
               </Link>
               <button onClick={() => setMobileOpen(false)} className="p-2 rounded-xl text-navy-700 hover:bg-navy-50" aria-label="Close menu">
                 <X className="w-6 h-6" />
