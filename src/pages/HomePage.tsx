@@ -183,7 +183,7 @@ export function HomePage() {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-navy-200/80 bg-navy-50 aspect-[4/5] group">
                 <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary-600 to-navy-900 z-10" />
                 <img
-                  src={heroImage}
+                  src="/amanah.webp"
                   alt="Doctor consulting a patient at Al Amanah Medical Center in Sharjah"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   loading="eager"
