@@ -8,7 +8,6 @@ import { DoctorsPage } from '@/pages/DoctorsPage';
 import { DoctorProfilePage } from '@/pages/DoctorProfilePage';
 import { SpecialtiesPage } from '@/pages/SpecialtiesPage';
 import { SpecialtyDetailPage } from '@/pages/SpecialtyDetailPage';
-import { OffersPage } from '@/pages/OffersPage';
 import { InsurancePage } from '@/pages/InsurancePage';
 import { HealthGuidePage } from '@/pages/HealthGuidePage';
 import { ArticlePage } from '@/pages/ArticlePage';
@@ -30,7 +29,6 @@ export default function App() {
             <Route path="/doctors/:slug" element={<DoctorProfilePage />} />
             <Route path="/specialties" element={<SpecialtiesPage />} />
             <Route path="/specialties/:slug" element={<SpecialtyDetailPage />} />
-            <Route path="/offers" element={<OffersPage />} />
             <Route path="/insurance" element={<InsurancePage />} />
             <Route path="/health-guide" element={<HealthGuidePage />} />
             <Route path="/health-guide/:slug" element={<ArticlePage />} />

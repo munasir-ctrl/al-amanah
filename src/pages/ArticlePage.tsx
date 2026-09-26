@@ -1,164 +1,135 @@
 import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Calendar, MessageCircle, AlertCircle, ArrowRight, User, Clock, Share2 } from 'lucide-react';
 import { SEO } from '@/components/SEO';
-import { getArticleBySlug, articles } from '@/data/healthGuide';
-import { services } from '@/data/services';
+import { articles } from '@/data/articles';
+import { articlesFull } from '@/data/articlesFull'; // Fallback or use articles data
+import { ArrowLeft, Calendar, Clock, MapPin, Phone, MessageCircle } from 'lucide-react';
+import { siteConfig } from '@/data/siteConfig';
 import { buildWhatsAppUrl, whatsappMessages } from '@/lib/whatsapp';
 import { NotFoundPage } from './LegalPages';
 
 export function ArticlePage() {
   const { slug } = useParams();
-  const article = getArticleBySlug(slug || '');
+  
+  // Find article from data list
+  const article = articles.find((a) => a.slug === slug);
 
-  if (!article) return <NotFoundPage />;
-
-  const relatedService = services.find((s) => s.slug === article.relatedService);
-  const relatedArticles = articles.filter((a) => a.slug !== article.slug && a.category === article.category).slice(0, 3);
+  if (!article) {
+    return <NotFoundPage />;
+  }
 
   const articleSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: article.title,
-    datePublished: article.publishedDate,
-    dateModified: article.updatedDate,
-    author: article.author ? { '@type': 'Organization', name: article.author } : undefined,
-    publisher: { '@type': 'Organization', name: 'Al Amanah Medical Center' },
+    '@type': 'MedicalWebPage',
+    name: article.title,
+    description: article.excerpt,
+    about: {
+      '@type': 'MedicalSpecialty',
+      name: article.category,
+    },
+    publisher: {
+      '@type': 'MedicalOrganization',
+      name: siteConfig.name,
+      address: siteConfig.address.full,
+    },
   };
-
-  const content = article.content.split('\n\n').map((block, i) => {
-    if (block.startsWith('## ')) {
-      return <h2 key={i} className="text-xl md:text-2xl font-bold text-navy-900 mt-10 mb-4 tracking-tight">{block.replace('## ', '')}</h2>;
-    }
-    if (block.startsWith('**') && block.endsWith('**')) {
-      return <p key={i} className="text-sm md:text-base font-bold text-navy-800 mt-6 mb-3">{block.replace(/\*\*/g, '')}</p>;
-    }
-    if (block.startsWith('- ')) {
-      const items = block.split('\n').filter((l) => l.startsWith('- ')).map((l) => l.replace('- ', ''));
-      return (
-        <ul key={i} className="space-y-3 my-6">
-          {items.map((item, j) => (
-            <li key={j} className="flex items-start gap-3 text-sm md:text-base text-navy-600 leading-relaxed">
-              <div className="w-2 h-2 rounded-full bg-accent-500 mt-2 shrink-0 shadow-sm shadow-accent-500/50" />
-              <span>{item.replace(/\*\*/g, '')}</span>
-            </li>
-          ))}
-        </ul>
-      );
-    }
-    return <p key={i} className="text-sm md:text-base text-navy-600 leading-relaxed mb-5">{block.replace(/\*\*/g, '')}</p>;
-  });
 
   return (
     <>
       <SEO
-        title={article.title}
+        title={`${article.title} — Al Amanah Medical Center Sharjah`}
         description={article.excerpt}
         canonical={`/health-guide/${article.slug}`}
         structuredData={articleSchema}
       />
 
-      {/* Breadcrumb */}
-      <div className="bg-navy-50/80 border-b border-navy-100 backdrop-blur-sm">
-        <div className="container-app py-3.5">
-          <nav className="flex items-center gap-2 text-xs text-navy-500 overflow-x-auto whitespace-nowrap">
-            <Link to="/" className="hover:text-primary-700 transition-colors">Home</Link>
-            <span>/</span>
-            <Link to="/health-guide" className="hover:text-primary-700 transition-colors">Health Guide</Link>
-            <span>/</span>
-            <span className="text-navy-700 font-medium truncate">{article.title}</span>
-          </nav>
+      {/* Breadcrumb Navigation */}
+      <div className="bg-navy-50 border-b border-navy-100 py-3">
+        <div className="container-app">
+          <Link
+            to="/health-guide"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary-700 hover:text-primary-800 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" /> Back to Health Guide
+          </Link>
         </div>
       </div>
 
-      {/* Header */}
-      <section className="bg-gradient-to-b from-navy-50 via-white to-white py-12 md:py-16">
-        <div className="container-app max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="px-3.5 py-1 rounded-full bg-accent-50 border border-accent-100 text-accent-700 text-xs font-semibold uppercase tracking-wider mb-4 inline-block shadow-sm">
-              {article.category}
-            </span>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-navy-900 mb-6 tracking-tight leading-snug">{article.title}</h1>
-            
-            <div className="flex flex-wrap items-center gap-4 text-xs md:text-sm text-navy-400 pb-6 border-b border-navy-100">
-              {article.author && (
-                <span className="flex items-center gap-1.5 font-medium text-navy-600 bg-navy-50 px-3 py-1.5 rounded-lg">
-                  <User className="w-4 h-4 text-primary-600" /> {article.author}
-                </span>
-              )}
+      {/* Article Content Section */}
+      <main className="py-12 sm:py-16 md:py-20 bg-white">
+        <article className="container-app max-w-3xl">
+          
+          {/* Header Meta */}
+          <div className="mb-8 pb-8 border-b border-navy-100">
+            <div className="flex items-center gap-3 text-xs sm:text-sm text-navy-400 mb-4 font-medium flex-wrap">
+              <span className="uppercase tracking-wider text-primary-700 font-bold bg-primary-50 px-3 py-1 rounded-md">
+                {article.category}
+              </span>
               <span className="flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5" /> Published: {new Date(article.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                <Clock className="w-4 h-4" /> {article.readTime || '3 min read'}
+              </span>
+              <span className="flex items-center gap-1">
+                <Calendar className="w-4 h-4" /> {article.date || 'Sharjah Medical Update'}
               </span>
             </div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Content */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container-app max-w-3xl">
-          <motion.article 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="prose-custom mb-10"
-          >
-            {content}
-          </motion.article>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-navy-900 tracking-tight leading-tight mb-4">
+              {article.title}
+            </h1>
 
-          {/* Medical Disclaimer */}
-          <div className="flex items-start gap-3.5 p-5 rounded-2xl bg-amber-50/70 border border-amber-200/60 mb-10 shadow-sm">
-            <AlertCircle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
-            <p className="text-xs md:text-sm text-navy-700 leading-relaxed">
-              <strong className="text-navy-900 font-semibold">Medical Disclaimer:</strong> This article is for informational purposes only and does not constitute medical advice. Always consult a qualified healthcare professional for formal diagnosis and personalized treatment.
+            <p className="text-base sm:text-lg text-navy-600 font-medium leading-relaxed">
+              {article.excerpt}
             </p>
           </div>
 
-          {/* CTA Box */}
-          <div className="card p-8 bg-gradient-to-br from-primary-50 via-white to-accent-50 border border-primary-100 shadow-soft rounded-3xl relative overflow-hidden">
-            <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-primary-500/5 rounded-full blur-2xl pointer-events-none" />
-            <h3 className="text-xl font-bold text-navy-900 mb-2">Need to Consult a Professional?</h3>
-            <p className="text-sm text-navy-500 mb-6 max-w-lg">Book an appointment with our expert specialists at Al Amanah Medical Center today.</p>
-            <div className="flex flex-wrap gap-3">
-              <Link to="/book" className="btn btn-primary shadow-md">
-                <Calendar className="w-4 h-4" /> Book Appointment
-              </Link>
-              <a href={buildWhatsAppUrl(whatsappMessages.general)} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp shadow-sm">
-                <MessageCircle className="w-4 h-4" /> WhatsApp Consultation
+          {/* Body Content */}
+          <div className="prose prose-navy max-w-none text-sm sm:text-base text-navy-700 leading-relaxed space-y-6">
+            <p>{article.content}</p>
+            
+            <h2 className="text-xl sm:text-2xl font-bold text-navy-900 pt-4">
+              Professional Care at Al Amanah Medical Center, Sharjah
+            </h2>
+            <p>
+              If you or a loved one are experiencing symptoms related to {article.category.toLowerCase()}, early clinical consultation ensures effective management and lasting relief. Located conveniently at {siteConfig.address.full}, our medical team is equipped to provide comprehensive, patient-centered diagnostics and treatment plans.
+            </p>
+
+            <div className="bg-navy-50 border-l-4 border-primary-600 p-5 rounded-r-xl my-6">
+              <h3 className="text-base font-bold text-navy-900 mb-1 flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-primary-600" /> Visit Our Center in Sharjah
+              </h3>
+              <p className="text-xs sm:text-sm text-navy-600">
+                {siteConfig.address.full} • Open Saturday to Thursday. Walk-ins welcome or book your consultation directly.
+              </p>
+            </div>
+          </div>
+
+          {/* Local Geo-Targeted Consultation CTA Banner */}
+          <div className="mt-12 pt-8 border-t border-navy-100 text-center bg-gradient-to-br from-navy-50 to-white rounded-2xl p-6 sm:p-8 border">
+            <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-2">
+              Ready to Consult a Specialist?
+            </h2>
+            <p className="text-xs sm:text-sm text-navy-500 mb-6 max-w-lg mx-auto leading-relaxed">
+              Speak directly with our practitioners or book your appointment today via WhatsApp or phone.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <a 
+                href={buildWhatsAppUrl(whatsappMessages.general)} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-whatsapp justify-center text-xs sm:text-sm py-3 px-6"
+              >
+                <MessageCircle className="w-4 h-4" /> Chat on WhatsApp
+              </a>
+              <a 
+                href={`tel:${siteConfig.phoneRaw}`} 
+                className="btn btn-primary justify-center text-xs sm:text-sm py-3 px-6"
+              >
+                <Phone className="w-4 h-4" /> Call: {siteConfig.phone}
               </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Related Articles */}
-      {relatedArticles.length > 0 && (
-        <section className="py-12 md:py-16 bg-navy-50/70 border-t border-navy-100">
-          <div className="container-app max-w-5xl">
-            <h2 className="text-2xl font-bold text-navy-900 mb-8 tracking-tight">Related Articles</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedArticles.map((a) => (
-                <motion.div key={a.slug} whileHover={{ y: -4 }} transition={{ duration: 0.2 }}>
-                  <Link to={`/health-guide/${a.slug}`} className="card group p-6 bg-white border border-navy-100 shadow-soft hover:shadow-premium transition-all rounded-2xl flex flex-col justify-between h-full">
-                    <div>
-                      <span className="text-xs font-semibold text-accent-600 mb-2.5 block">{a.category}</span>
-                      <h3 className="text-base font-bold text-navy-900 mb-3 group-hover:text-primary-700 transition-colors leading-snug">{a.title}</h3>
-                      <p className="text-xs text-navy-500 line-clamp-2 mb-4 leading-relaxed">{a.excerpt}</p>
-                    </div>
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-primary-600 group-hover:gap-2.5 transition-all">
-                      Read Article <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+        </article>
+      </main>
     </>
   );
 }

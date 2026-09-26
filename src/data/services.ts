@@ -15,7 +15,7 @@ export interface Service {
 
 export const services: Service[] = [
   {
-    slug: 'general-dentistry',
+    slug: 'dental-care', // Matches the "Dental Care" card link on your homepage
     title: 'General Dentistry',
     category: 'Dental',
     shortDescription:
@@ -30,7 +30,7 @@ export const services: Service[] = [
     ],
     price: 'From AED 100',
     duration: '20–30 min',
-    image: 'general-dentistry',
+    image: '/general%20dent.jpg',
     icon: 'Stethoscope',
     relatedDoctors: ['dr-general-dentist'],
   },
@@ -50,12 +50,12 @@ export const services: Service[] = [
     ],
     price: 'AED 150',
     duration: '30 min',
-    image: 'internal-medicine',
+    image: '/internal-med.jpg',
     icon: 'Stethoscope',
     relatedDoctors: ['dr-internal-medicine-specialist'],
   },
   {
-    slug: 'cardiology-consultation',
+    slug: 'cardiology',
     title: 'Cardiology Consultation',
     category: 'Cardiology',
     shortDescription:
@@ -70,7 +70,7 @@ export const services: Service[] = [
     ],
     price: 'AED 200',
     duration: '30 min',
-    image: 'cardiology',
+    image: '/cardio.jpg',
     icon: 'HeartPulse',
     relatedDoctors: ['dr-consultant-cardiologist'],
   },
@@ -90,12 +90,12 @@ export const services: Service[] = [
     ],
     price: 'AED 150',
     duration: '20 min',
-    image: 'general-practice',
+    image: '/internal-med.jpg',
     icon: 'Stethoscope',
     relatedDoctors: ['dr-general-practitioner'],
   },
   {
-    slug: 'homoeopathy-care',
+    slug: 'homoeopathy',
     title: 'Homeopathic Consultation',
     category: 'Homoeopathy',
     shortDescription:
@@ -110,7 +110,7 @@ export const services: Service[] = [
     ],
     price: 'AED 150',
     duration: '30 min',
-    image: 'homoeopathy',
+    image: '/homeopathy.jpg',
     icon: 'Sparkles',
     relatedDoctors: ['dr-homeopathy-practitioner'],
   },
@@ -130,7 +130,7 @@ export const services: Service[] = [
     ],
     price: 'AED 200',
     duration: '45 min',
-    image: 'unani',
+    image: '/unani.jpg',
     icon: 'Activity',
     relatedDoctors: ['dr-unani-practitioner'],
   },

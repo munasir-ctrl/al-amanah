@@ -1,127 +1,109 @@
-import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
-import { articles, articleCategories } from '@/data/healthGuide';
-import { ArrowRight, BookOpen, Clock, Calendar } from 'lucide-react';
+import { articles } from '@/data/articles';
+import { ArrowRight, Calendar, Clock, MapPin, Phone, MessageCircle } from 'lucide-react';
+import { siteConfig } from '@/data/siteConfig';
+import { buildWhatsAppUrl, whatsappMessages } from '@/lib/whatsapp';
 
 export function HealthGuidePage() {
-  const [activeCategory, setActiveCategory] = useState('All');
-
-  const filteredArticles = useMemo(() => {
-    if (activeCategory === 'All') return articles;
-    return articles.filter((article) => article.category === activeCategory);
-  }, [activeCategory]);
-
   return (
     <>
       <SEO
-        title="Health Guide — Medical Tips & Insights | Al Amanah"
-        description="Expert-written health articles on dental care, ENT, diabetes, cardiology, pediatrics, and preventive health. Learn more about your health at Al Amanah Medical Center."
+        title="Health Guide & Medical Articles — Al Amanah Medical Center Sharjah"
+        description="Explore expert health advice, preventative care tips, and clinical insights from leading practitioners at Al Amanah Medical Center located in Al Mubarak Center, Sharjah."
         canonical="/health-guide"
       />
 
-      {/* Classic Journal Header */}
-      <section className="bg-white py-16 md:py-24 border-b border-navy-100">
-        <div className="container-app text-center max-w-3xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary-600 mb-4 inline-block">
-            Clinical Insights & Resources
-          </span>
-          <h1 className="text-3xl md:text-5xl font-extrabold text-navy-900 mb-6 tracking-tight">
-            Health Guide & Medical Articles
+      {/* Luxury Geo-Optimized Hero Section */}
+      <section className="bg-gradient-to-b from-navy-50/80 via-white to-white py-12 sm:py-16 md:py-20 border-b border-navy-100/50">
+        <div className="container-app text-center px-4 max-w-3xl">
+          <div className="inline-flex items-center gap-1.5 bg-accent-50 text-accent-700 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-[0.2em] mb-3">
+            <MapPin className="w-3.5 h-3.5" /> Sharjah Health & Wellness Hub
+          </div>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy-900 mb-4 tracking-tight">
+            Expert Medical Articles & Tips
           </h1>
-          <div className="w-16 h-1 bg-primary-500 mx-auto mb-6" />
-          <p className="text-base md:text-lg text-navy-600 leading-relaxed font-normal">
-            Authoritative health literature curated by our specialist practitioners to empower your wellness journey and preventive care decisions.
+          <p className="text-base sm:text-lg text-navy-500 leading-relaxed font-normal">
+            Trusted clinical guidance, preventative health advice, and patient education written by specialized practitioners serving the Sharjah and UAE community since {siteConfig.established}.
           </p>
         </div>
       </section>
 
-      {/* Main Content Layout */}
-      <section className="py-16 md:py-20 bg-navy-50/40">
+      {/* Completely Imageless Clean Articles Grid */}
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="container-app">
-          
-          {/* Classic Category Navigation Bar */}
-          <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-14 border-b border-navy-200/60 pb-8">
-            <button
-              onClick={() => setActiveCategory('All')}
-              className={`px-5 py-2.5 rounded-lg text-xs md:text-sm font-semibold transition-all ${
-                activeCategory === 'All'
-                  ? 'bg-navy-900 text-white shadow-sm'
-                  : 'bg-white text-navy-700 hover:bg-navy-100/60 border border-navy-200/80'
-              }`}
-            >
-              All Articles
-            </button>
-            {articleCategories.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-5 py-2.5 rounded-lg text-xs md:text-sm font-semibold transition-all ${
-                    isActive
-                      ? 'bg-navy-900 text-white shadow-sm'
-                      : 'bg-white text-navy-700 hover:bg-navy-100/60 border border-navy-200/80'
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Classic Articles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredArticles.map((article) => (
-              <Link
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {articles.map((article, i) => (
+              <article
                 key={article.slug}
-                to={`/health-guide/${article.slug}`}
-                className="group bg-white rounded-xl border border-navy-200/80 shadow-sm hover:shadow-md hover:border-navy-300 transition-all duration-300 overflow-hidden flex flex-col h-full"
+                className="group relative bg-white rounded-2xl p-6 sm:p-8 border border-navy-100/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_30px_-6px_rgba(0,0,0,0.08)] hover:border-primary-200 transition-all duration-300 flex flex-col justify-between"
+                style={{ transitionDelay: `${i * 50}ms` }}
               >
-                {/* Minimalist Top Accent Bar */}
-                <div className="h-1 bg-primary-600 w-full group-hover:bg-primary-700 transition-colors" />
-                
-                <div className="p-7 flex flex-col flex-1">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-primary-700 bg-primary-50 px-2.5 py-1 rounded">
+                <div>
+                  {/* Category & Read Time Meta */}
+                  <div className="flex items-center justify-between text-xs text-navy-400 mb-4 font-medium">
+                    <span className="uppercase tracking-wider text-primary-700 font-bold bg-primary-50 px-3 py-1 rounded-md">
                       {article.category}
                     </span>
-                    <span className="flex items-center gap-1.5 text-xs text-navy-400 font-medium">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {new Date(article.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3.5 h-3.5" /> {article.readTime || '3 min read'}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-navy-900 mb-3 group-hover:text-primary-700 transition-colors tracking-tight leading-snug">
-                    {article.title}
-                  </h3>
+                  {/* Title */}
+                  <h2 className="text-lg sm:text-xl font-bold text-navy-900 group-hover:text-primary-700 transition-colors mb-3 tracking-tight leading-snug">
+                    <Link to={`/health-guide/${article.slug}`}>
+                      <span className="absolute inset-0" />
+                      {article.title}
+                    </Link>
+                  </h2>
 
-                  <p className="text-sm text-navy-600 leading-relaxed mb-6 flex-1 line-clamp-3">
+                  {/* Excerpt */}
+                  <p className="text-xs sm:text-sm text-navy-500 leading-relaxed line-clamp-3 mb-6 font-normal">
                     {article.excerpt}
                   </p>
-                  
-                  <div className="flex items-center justify-between pt-4 border-t border-navy-100 mt-auto">
-                    <span className="flex items-center gap-1.5 text-xs font-semibold text-navy-900 group-hover:text-primary-600 transition-colors">
-                      Read Complete Article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                    <Clock className="w-4 h-4 text-navy-300" />
-                  </div>
                 </div>
-              </Link>
+
+                {/* Footer Meta & Action */}
+                <div className="pt-4 border-t border-navy-100/60 flex items-center justify-between text-xs font-semibold text-navy-700 group-hover:text-primary-700 transition-colors">
+                  <span className="flex items-center gap-1 text-navy-400 font-normal">
+                    <Calendar className="w-3.5 h-3.5" /> {article.date || 'Sharjah Medical Update'}
+                  </span>
+                  <span className="inline-flex items-center gap-1 font-bold text-primary-600 group-hover:translate-x-1 transition-transform">
+                    Read Article <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </div>
+              </article>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Classic Empty State */}
-          {filteredArticles.length === 0 && (
-            <div className="text-center py-20 bg-white rounded-2xl border border-navy-200 shadow-sm max-w-md mx-auto px-6">
-              <div className="w-12 h-12 rounded-xl bg-navy-50 text-navy-600 flex items-center justify-center mx-auto mb-4 border border-navy-100">
-                <BookOpen className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-bold text-navy-900 mb-1">No Articles Found</h3>
-              <p className="text-sm text-navy-600">There are currently no published guides available under this classification. Please select an alternative category.</p>
-            </div>
-          )}
-
+      {/* Local Geo-Targeted Consultation CTA Banner */}
+      <section className="py-12 sm:py-16 bg-navy-900 text-white">
+        <div className="container-app max-w-4xl text-center px-4">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3 tracking-tight">
+            Have Questions About Your Health?
+          </h2>
+          <p className="text-sm sm:text-base text-navy-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Visit our medical center at {siteConfig.address.full} or connect directly with our expert practitioners via phone or WhatsApp.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+            <a 
+              href={buildWhatsAppUrl(whatsappMessages.general)} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-whatsapp justify-center text-sm py-3 px-6"
+            >
+              <MessageCircle className="w-4 h-4" /> Chat on WhatsApp
+            </a>
+            <a 
+              href={`tel:${siteConfig.phoneRaw}`} 
+              className="btn bg-white/10 text-white hover:bg-white/20 border border-white/20 justify-center text-sm py-3 px-6"
+            >
+              <Phone className="w-4 h-4" /> Call: {siteConfig.phone}
+            </a>
+          </div>
         </div>
       </section>
     </>

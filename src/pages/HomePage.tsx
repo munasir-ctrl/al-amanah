@@ -353,27 +353,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* OFFERS */}
-      <section className="py-20 md:py-28 bg-white border-t border-navy-100">
-        <div className="container-app">
-          <SectionHeading
-            eyebrow="Care Packages"
-            title="Special Offers & Care Packages"
-            subtitle="Transparent pricing for our most requested preventative and clinical packages."
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {offers.slice(0, 6).map((offer) => (
-              <OfferCard key={offer.slug} offer={offer} />
-            ))}
-          </div>
-          <div className="text-center mt-12">
-            <Link to="/offers" className="btn bg-white text-navy-900 border border-navy-300 hover:bg-navy-50 shadow-sm px-8 py-4 font-bold text-sm">
-              View All Offers <ArrowRight className="w-4 h-4 text-primary-600" />
-            </Link>
-          </div>
-          <OfferDisclaimer />
-        </div>
-      </section>
+  
 
       {/* INSURANCE */}
       <section className="py-20 md:py-28 bg-navy-900 text-white relative overflow-hidden">
@@ -562,47 +542,48 @@ export function HomePage() {
         <div className="container-app">
           <SectionHeading
             eyebrow="Health Guide"
-            title="Health Tips & Medical Insights"
-            subtitle="Expert articles written by our practitioners to help you make informed health decisions."
+            title="Latest Health Articles & Tips"
+            subtitle="Expert insights, preventative advice, and clinical guidance from our practitioners."
           />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {articles.slice(0, 3).map((article) => (
               <Link
                 key={article.slug}
                 to={`/health-guide/${article.slug}`}
-                className="group bg-navy-50/40 rounded-2xl overflow-hidden border border-navy-200/80 shadow-sm hover:border-navy-300 transition-all flex flex-col justify-between"
+                className="group bg-navy-50/40 rounded-2xl border border-navy-200/80 overflow-hidden shadow-sm hover:border-navy-300 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="aspect-[16/10] overflow-hidden bg-navy-100 relative">
+                  <div className="aspect-[16/9] overflow-hidden bg-navy-100">
                     <img
                       src={article.image}
                       alt={article.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
                     />
-                    <span className="absolute top-4 left-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[11px] font-bold text-navy-900 uppercase tracking-wider shadow-sm">
-                      {article.category}
-                    </span>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-lg font-bold text-navy-900 group-hover:text-primary-600 transition-colors mb-3 tracking-tight">
+                    <span className="text-xs font-bold text-primary-600 uppercase tracking-widest mb-2 block">
+                      {article.category}
+                    </span>
+                    <h3 className="text-lg font-bold text-navy-900 mb-3 group-hover:text-primary-600 transition-colors tracking-tight line-clamp-2">
                       {article.title}
                     </h3>
-                    <p className="text-sm text-navy-600 leading-relaxed line-clamp-2 font-normal">
+                    <p className="text-sm text-navy-600 leading-relaxed font-normal line-clamp-2">
                       {article.excerpt}
                     </p>
                   </div>
                 </div>
-                <div className="px-6 pb-6 pt-0 flex items-center justify-between text-xs font-bold text-primary-600 uppercase tracking-widest">
-                  <span>Read Article</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <div className="px-6 pb-6 pt-0">
+                  <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary-600 group-hover:translate-x-1 transition-transform">
+                    Read Article <ArrowRight className="w-4 h-4" />
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
           <div className="text-center">
             <Link to="/health-guide" className="btn bg-white text-navy-900 border border-navy-300 hover:bg-navy-50 shadow-sm px-8 py-4 font-bold text-sm">
-              View All Health Guides <ArrowRight className="w-4 h-4 text-primary-600" />
+              View All Articles <ArrowRight className="w-4 h-4 text-primary-600" />
             </Link>
           </div>
         </div>

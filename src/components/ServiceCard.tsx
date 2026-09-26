@@ -9,17 +9,19 @@ export function ServiceCard({ service }: { service: Service }) {
       className="card group hover:shadow-premium hover:border-primary-200 hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
     >
       <div className="aspect-[16/10] bg-gradient-to-br from-primary-50 to-accent-50 relative overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-white/80 backdrop-blur-sm flex items-center justify-center shadow-soft group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-            <span className="text-2xl font-bold text-primary-600">{service.title.charAt(0)}</span>
-          </div>
-        </div>
-        <div className="absolute top-3 right-3">
-          <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${service.category === 'Dental' ? 'bg-accent-100 text-accent-700' : 'bg-primary-100 text-primary-700'}`}>
+        {/* Render the actual service image */}
+        <img
+          src={service.image}
+          alt={service.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+        
+        <div className="absolute top-3 right-3 z-10">
+          <span className={`px-2.5 py-1 rounded-full text-xs font-semibold shadow-sm ${service.category === 'Dental' ? 'bg-accent-100 text-accent-700' : 'bg-white/90 backdrop-blur-sm text-primary-700'}`}>
             {service.category}
           </span>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/0 to-navy-900/0 group-hover:from-navy-900/5 transition-all duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-950/20 to-transparent group-hover:from-navy-950/40 transition-all duration-300" />
       </div>
       <div className="p-5 flex flex-col flex-1">
         <h3 className="text-base font-bold text-navy-900 mb-1.5 group-hover:text-primary-700 transition-colors">
